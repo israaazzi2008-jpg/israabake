@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World's Savoury | Pâtisserie d'Excellence</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --baby-pink: #fff0f5; /* Rose pastel très doux */
+            --soft-pink: #ffdae0;
+            --accent-pink: #f8bbd0;
+            --text-color: #5d4037;
+            --white: #ffffff;
+            --shadow: 0 15px 35px rgba(248, 187, 208, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--baby-pink);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- FOND ÉTINCELANT (SPARKLES) --- */
+        #sparkle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- HEADER & LOGO À DROITE --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--soft-pink);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-right: 25px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-pink);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-box img {
+            height: 85px; /* Taille du logo */
+            width: 85px;
+            border-radius: 50%;
+            border: 3px solid var(--soft-pink);
+            object-fit: cover;
+            /* ANIMATION FLOTTANTE SUBTILE */
+            animation: gentleFloat 4s infinite ease-in-out;
+            box-shadow: var(--shadow);
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        /* --- PAGES --- */
+        .page {
+            display: none;
+            padding: 160px 10% 80px;
+            animation: fadeInPage 0.8s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HOME PAGE --- */
+        .hero {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #d4a373; /* Couleur dorée douce */
+            margin-bottom: 40px;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 850px;
+            border-radius: 60px;
+            border: 15px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        /* --- MENU SECTION --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .category-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 40px 0;
+            color: var(--accent-pink);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 218, 224, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .item-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: var(--baby-pink);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .order-tag {
+            color: #d4a373;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CONTACT --- */
+        .contact-wrap {
+            text-align: center;
+            background: white;
+            padding: 60px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .fb { background: #3b5998; }
+        .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .wa { background: #25D366; }
+
+        .social-btn:hover { transform: scale(1.03); opacity: 0.9; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            header { flex-direction: column-reverse; padding: 15px; gap: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .page { padding-top: 180px; }
+            nav { gap: 10px; }
+            nav a { margin: 0 5px; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas pour les étincelles -->
+    <canvas id="sparkle-canvas"></canvas>
+
+    <header>
+        <nav>
+            <a onclick="show('home')" id="link-home" class="active">Accueil</a>
+            <a onclick="show('menu')" id="link-menu">Menu</a>
+            <a onclick="show('about')" id="link-about">À Propos</a>
+            <a onclick="show('contact')" id="link-contact">Contact</a>
+        </nav>
+
+        <div class="logo-box">
+            <!-- VOTRE LOGO -->
+            <img src="d14c3f3e-72ca-48e4-a9ab-77d1e2d22715.jpg" alt="Logo World's Savoury">
+        </div>
+    </header>
+
+    <!-- PAGE ACCUEIL -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <h1>World's Savoury</h1>
+            <p>La magie de la pâtisserie faite maison</p>
+            <img src="720228013_122223033776344474_1009940766896896827_n.jpg" class="hero-img" alt="Gâteau Papillon">
+        </div>
+    </section>
+
+    <!-- PAGE MENU -->
+    <section id="menu" class="page">
+        <h2 class="category-title">Nos Gâteaux</h2>
+        
+        <div class="menu-grid">
+            <!-- GÂTEAU 1 -->
+            <div class="card">
+                <img src="720228013_122223033776344474_1009940766896896827_n.jpg" alt="Féérie Rose">
+                <div class="card-body">
+                    <h3>Féérie Rose & Papillons</h3>
+                    <p style="margin-bottom: 15px; color: #777;">Un design enchanteur avec des papillons et des perles sucrées.</p>
+                    <div class="item-info">
+                        <span class="badge">Hauteur: 35cm</span>
+                        <span class="badge">Poids: 2.5kg</span>
+                        <span class="badge">Parts: 25-30 pers.</span>
+                    </div>
+                    <span class="order-tag">Sur commande</span>
+                </div>
+            </div>
+
+            <!-- GÂTEAU 2 -->
+            <div class="card">
+                <img src="704229502_122221269374344474_592051945969117619_n.jpg" alt="Graduation">
+                <div class="card-body">
+                    <h3>Célébration Prestige</h3>
+                    <p style="margin-bottom: 15px; color: #777;">L'élégance du blanc pour vos diplômes et réussites.</p>
+                    <div class="item-info">
+                        <span class="badge">Taille: 24cm x 24cm</span>
+                        <span class="badge">Poids: 1.8kg</span>
+                        <span class="badge">Parts: 12-15 pers.</span>
+                    </div>
+                    <span class="order-tag">Sur commande</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE À PROPOS -->
+    <section id="about" class="page">
+        <div class="contact-wrap">
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 20px;">Notre Histoire</h2>
+            <p style="line-height: 1.8;">
+                Bienvenue chez <strong>World's Savoury</strong>. Notre passion est de créer des gâteaux qui ne sont pas seulement beaux à regarder, mais délicieux à savourer. Chaque création est unique et réalisée avec les meilleurs ingrédients pour rendre vos moments inoubliables.
+            </p>
+            <br>
+            <p>Situés à Béni Saf, nous mettons tout notre cœur dans l'art de la pâtisserie artisanale.</p>
+        </div>
+    </section>
+
+    <!-- PAGE CONTACT -->
+    <section id="contact" class="page">
+        <div class="contact-wrap">
+            <h2 style="font-family: 'Playfair Display'; margin-bottom: 30px;">Commander votre gâteau</h2>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1AEWSZQUeR/" target="_blank" class="social-btn fb">Facebook</a>
+                <a href="https://www.instagram.com/worldssavory" target="_blank" class="social-btn ig">Instagram</a>
+                <a href="https://wa.me/213XXXXXXX" target="_blank" class="social-btn wa">WhatsApp</a>
+            </div>
+            <p style="margin-top: 30px;">📍 Béni Saf, Algérie</p>
+        </div>
+    </section>
+
+    <script>
+        // --- NAVIGATION ENTRE LES PAGES ---
+        function show(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(id).classList.add('active');
+            document.getElementById('link-' + id).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // --- SYSTÈME D'ÉTINCELLES (SPARKLES) ---
+        const canvas = document.getElementById('sparkle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random();
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.opacity < 1) this.opacity += 0.01;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(Math.sin(Date.now() * 0.001 + this.x))})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+        // --- PETITS ELEMENTS QUI TOMBENT (CUPCAKES) ---
+        function createFloatingElement() {
+            const el = document.createElement('div');
+            el.innerHTML = "✨"; // Vous pouvez mettre 🧁
+            el.style.position = 'fixed';
+            el.style.top = '-20px';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = Math.random() * 20 + 10 + 'px';
+            el.style.opacity = '0.4';
+            el.style.pointerEvents = 'none';
+            el.style.zIndex = '999';
+            el.style.transition = 'transform 5s linear, opacity 5s';
+            
+            document.body.appendChild(el);
+
+            setTimeout(() => {
+                el.style.transform = `translateY(${window.innerHeight + 50}px) rotate(360deg)`;
+            }, 100);
+
+            setTimeout(() => {
+                el.remove();
+            }, 6000);
+        }
+
+        setInterval(createFloatingElement, 1000);
+    </script>
+</body>
+</html>
